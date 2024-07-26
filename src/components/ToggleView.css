@@ -1,0 +1,21 @@
+.toggle-view {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.toggle-button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.toggle-button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
