@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import ToggleView from './components/ToggleView';
+import DateDropdown from './components/DateDropdown';
+import StrategyCards from './components/StrategyCards';
+import EmptyState from './components/EmptyState';
+import { dateArray, strategyArray } from './data/data';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [selectedView, setSelectedView] = useState('Bullish');
+  const [selectedDate, setSelectedDate] = useState(dateArray[0]);
+
+  const strategiesForSelectedView = strategyArray.find(view => view.View === selectedView);
+  const strategiesForSelectedDate = strategiesForSelectedView?.Value[selectedDate] || [];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="branding">
+        Nerve Solutions
+      </div>
+      <ToggleView selectedView={selectedView} setSelectedView={setSelectedView} />
+      <DateDropdown dateArray={dateArray} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+      {strategiesForSelectedDate.length > 0 ? (
+        <StrategyCards strategies={strategiesForSelectedDate} />
+      ) : (
+        <EmptyState date={selectedDate} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
